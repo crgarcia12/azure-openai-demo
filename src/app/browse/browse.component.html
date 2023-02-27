@@ -1,0 +1,43 @@
+<div class="layout">
+  <div class="network-panel">
+    <mat-form-field class="search-field">
+      <input [formControl]="searchControl" type="text" placeholder="Search nodes" matInput [matAutocomplete]="auto">
+
+
+      <mat-icon matSuffix class="mat-icon-button" aria-label="Search">
+        <span class="material-icons">search</span>
+      </mat-icon>
+
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onNodeSelected($event?.option?.value)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div id="network-container"></div>
+    <div id="timeline-parent">
+      <div id="timeline-container"></div> 
+    </div>  
+    <div class="time-button-container">
+
+      <button color="primary" mat-fab aria-label="timeline" (click)="toggleTimeline()">
+        <mat-icon>timeline</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+  <div class="document-panel">
+    <mat-card class="card" *ngIf="contextualInfo">
+    <mat-card-header>
+      <mat-card-subtitle>Document Viewer</mat-card-subtitle>
+      <mat-card-title>{{ selectedDocumentName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content id="textView">
+      <p [innerHTML]="contextualInfo"></p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-footer>
+    </mat-card-footer>
+  </mat-card>   
+  </div>
